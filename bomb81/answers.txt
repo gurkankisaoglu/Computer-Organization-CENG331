@@ -1,0 +1,7 @@
+The text is I can see Russia from my house!
+0 0 0 0 0 0
+7 12 850
+60 3 DrEvil
+vfldhp
+3 2 1 5 6 4
+1001

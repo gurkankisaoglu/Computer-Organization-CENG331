@@ -1,0 +1,56 @@
+#
+# Gürkan Kısaoğlu
+# 2171726
+#
+# I traverse both src and dest in the same loop
+# while im copying from src to dest.
+# 
+# Execution begins at address 0 
+	.pos 0 
+	irmovq stack, %rsp  	# Set up stack pointer  
+	call main		# Execute main program
+	halt			# Terminate program 
+
+
+.align 8
+# Source block
+src:
+	.quad 0x00a
+	.quad 0x0b0
+	.quad 0xc00
+
+
+dest:
+	.quad 0x111
+	.quad 0x222
+	.quad 0x333
+
+
+main:	irmovq src,%rdi	
+	irmovq dest,%rsi
+	irmovq $3,%rdx
+	call copy		# sum(array, 4)
+	ret 
+
+copy:
+	irmovq $1,%r9
+	irmovq $8,%r8	
+	xorq %rax,%rax
+	andq %rdx,%rdx
+	jmp test
+
+loop:
+	mrmovq (%rdi), %r10
+	addq %r8, %rdi
+	rmmovq %r10,(%rsi)
+	addq %r8,%rsi
+	xorq %r10,%rax
+	subq %r9,%rdx
+
+test:
+	jne loop
+	ret
+
+
+	.pos 0x200		
+stack:	 
